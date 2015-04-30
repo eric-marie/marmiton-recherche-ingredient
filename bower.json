@@ -1,0 +1,14 @@
+{
+  "name": "marmiton-recherche-ingredient",
+  "description": "Rend possible la recherche de recettes sur le site marmiton.org",
+  "version": "0.0.1",
+  "main": [],
+  "ignore": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eric-marie/marmiton-recherche-ingredient.git"
+  },
+  "dependencies": {
+    "jquery": "1.11.*"
+  }
+}

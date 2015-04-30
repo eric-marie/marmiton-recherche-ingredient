@@ -1,0 +1,21 @@
+{
+  "name": "marmiton-recherche-ingredient",
+  "description": "Rend possible la recherche de recettes sur le site marmiton.org",
+  "version": "0.0.1",
+  "authors": [
+    "Eric MARIE <eric.marie18@gmail.com>"
+  ],
+  "devDependencies": {
+    "cheerio": "^0.19.0",
+    "grunt": "^0.4.5",
+    "grunt-bower-task": "^0.4.0",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^3.1.0",
+    "node-xhr": "^1.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eric-marie/marmiton-recherche-ingredient.git"
+  }
+}

@@ -1,0 +1,11 @@
+# Fichier de config de PhpStorm
+/.idea/
+
+# Modules installés via nodeJs
+/node_modules/
+
+# Libraires importées via Bower
+/vendor/
+
+# Fichiers générés par les tâches Grunt
+/lib/
