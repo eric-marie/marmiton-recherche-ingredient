@@ -1,12 +1,12 @@
 # marmiton-recherche-ingredient
-Permet de rechercher des recettes sur marmiton.org en sélectionnant une catégorie de plat et des ingrédients
+Permet de rechercher des recettes sur marmiton.org en sélectionnant une catégorie de plat et des ingrédients.
 
 ## pour l'utiliser
-Sur le même domaine que la page où va être utilisée la recherche, il faut disposer de nodejs et avoir installé grunt-cli en global
+Il faut disposer de nodejs sur le serveur.
 
-Il faut alors checkout ce projet, executer "npm install", puis "grunt".
+Il faut alors checkout ce projet puis executer "npm install".
 
-Ensuite, il n'y a plus qu'à lancer le serveur : "node src/server.js"
+Ensuite, il n'y a plus qu'à lancer le serveur : "node server.js".
 
 ## pour tester
-Il y a une page de test dans le dossier exemple.
+Il y a une page de test dans le dossier exemple ainsi qu'un js pour utiliser l'api.
