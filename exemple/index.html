@@ -10,47 +10,39 @@
     <div class="row">
         <form class="col-sm-3" action="#" method="post" data-mri-form>
             <h2>Recherche</h2>
+
             <div class="form-group">
                 <label for="ingredient" class="control-label">Ingrédient</label>
-                <input id="ingredient" data-mri-ingredient class="form-control" placeholder="Ingrédient" value="Carotte" />
+                <input id="ingredient" data-mri-ingredient class="form-control" placeholder="Ingrédient"
+                       value="Carotte"/>
             </div>
             <div class="form-group">
                 <label for="type-repas" class="control-label">Type de repas</label>
                 <select id="type-repas" data-mri-type-repas class="form-control" multiple></select>
             </div>
             <div class="form-group">
+                <input type="checkbox" id="vegetarien" data-mri-vegetarien/>
+                <label for="vegetarien" class="control-label">Végétarien</label>
+            </div>
+            <div class="form-group">
                 <button type="submit" class="btn btn-success">Rechercher</button>
             </div>
         </form>
         <div class="col-sm-9">
-            <h2>Résultats</h2>
-            <div data-mri-results>
-                <div data-mri-result-template>
-                    <div class="row" style="margin-bottom: 20px;">
-                        <div class="col-xs-4">
-                            <div>
-                                <span data-mri-result-template-value="note" data-mri-result-template-star="glyphicon glyphicon-star"
-                                      data-mri-result-template-star-empty="glyphicon glyphicon-star-empty"></span>
-                                <span data-mri-result-template-value="nbvote"></span>
-                            </div>
-                            <div data-mri-result-template-value="difficulte"></div>
-                            <div data-mri-result-template-value="prix"></div>
-                            <div data-mri-result-template-value="preparation"></div>
-                            <div data-mri-result-template-value="cuisson"></div>
-                        </div>
-                        <div class="col-xs-8">
-                            <div data-mri-result-template-value="titre"></div>
-                            <div data-mri-result-template-value="description"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button type="button" class="btn btn-default btn-block" data-mri-load-more data-mri-load-more-count="0">Charger plus de résultats</button>
+            <h2>Résultats <span data-mri-count></span></h2>
+
+            <div data-mri-results></div>
+            <button type="button" class="btn btn-default btn-block" data-mri-load-more style="margin-bottom: 20px;">
+                Charger plus de résultats
+            </button>
         </div>
     </div>
 </div>
-<script type="text/javascript" charset="UTF-8" src="../vendor/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" charset="UTF-8" src="../dist/mri.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" charset="UTF-8"
+        src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" charset="UTF-8"
+        src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="mri.js"></script>
 </body>
 </html>

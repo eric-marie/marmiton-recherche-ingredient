@@ -1,5 +1,5 @@
-var http = require("http"),
-    url = require("url"),
+var http = require('http'),
+    url = require('url'),
     xhr = require('node-xhr'),
     cheerio = require('cheerio');
 
@@ -9,22 +9,35 @@ http.createServer(function (request, response) {
         "Access-Control-Allow-Origin": "*"
     });
 
-    var query = url.parse(request.url).query;
+    var marmitonUrl = 'http://www.marmiton.org';
 
-    if (null != query) {
+    var searchReceipts = function (url, redirectCount) {
+        console.log(url);
         xhr.get({
-            url: 'http://www.marmiton.org/recettes/recherche.aspx?' + query
+            url: url
         }, function (err, res) {
             if (err) {
                 console.log(err.message);
+                response.write('[]');
+                response.end();
                 return;
             } else if (200 != res.status.code) {
+                if (301 == res.status.code && 5 >= redirectCount) {
+                    searchReceipts(marmitonUrl + res.headers.location, ++redirectCount);
+                    return;
+                }
                 console.log(res.status);
                 console.log(res.headers);
+                response.write('[]');
+                response.end();
                 return;
             }
 
             var $ = cheerio.load(res.body);
+
+            var regexResult = /(\d*)\s\/\s(\d*)/.exec($('.m_resultats_recherche_titre').html()),
+                count = regexResult[1],
+                total = regexResult[2];
 
             var listeResultats = $('.m_resultats_liste_recherche > div');
 
@@ -34,7 +47,8 @@ http.createServer(function (request, response) {
                     return true; // Equivalent à un "continue;" dans une boucle classique
                 }
                 var titre = $('.m_titre_resultat > a', $(this));
-                var titreValue = "<a target=\"_blank\" href=\"" + titre.attr('href') + "\">" + titre.html() + "</a>";
+                var titreValue = titre.html();
+                var lienValue = 'http://www.marmiton.org' + titre.attr('href');
 
                 var temps = $('.m_detail_time > div', $(this));
 
@@ -63,6 +77,7 @@ http.createServer(function (request, response) {
 
                 result.push({
                     titre: titreValue,
+                    lien: lienValue,
                     description: descriptionValue,
                     note: noteValue,
                     nbvote: nbVoteValue,
@@ -73,9 +88,41 @@ http.createServer(function (request, response) {
                 });
             });
 
-            response.write(JSON.stringify(result));
-
+            response.write(JSON.stringify({count: count, total: total, result: result}));
             response.end();
         });
+    };
+    var selectOption = function () {
+        var typeRepas = {
+            entree: "Entrée",
+            platprincipal: "Plat principal",
+            dessert: "Dessert",
+            accompagnement: "Accompagnement",
+            amusegueule: "Amuse gueule",
+            boisson: "Boisson",
+            confiserie: "Confiserie",
+            sauce: "Sauce"
+        };
+
+        var selectOptions = [];
+        for (var index in typeRepas) {
+            if (typeRepas.hasOwnProperty(index)) {
+                selectOptions.push("<option value=\"" + index + "\">" + typeRepas[index] + "</option>");
+            }
+        }
+
+        response.write(JSON.stringify(selectOptions));
+        response.end();
+    };
+
+    var parsedUrl = url.parse(request.url);
+    var query = parsedUrl.query;
+    if ('/select-options' == parsedUrl.pathname) {
+        selectOption();
+    } else if ('/' == parsedUrl.pathname && null != query) {
+        searchReceipts(marmitonUrl + '/recettes/recherche.aspx?' + query, 0)
+    } else {
+        response.write('[]');
+        response.end();
     }
 }).listen(8888);
