@@ -5,9 +5,12 @@
   "authors": [
     "Eric MARIE <eric.marie18@gmail.com>"
   ],
-  "devDependencies": {
+  "dependencies": {
     "cheerio": "^0.19.0",
     "node-xhr": "^1.0.5"
+  },
+  "scripts": {
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
