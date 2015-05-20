@@ -8,7 +8,7 @@
         loadMoreBtn = $('button[data-mri-load-more]'),
         resultTemplate = '';
 
-    var mriServer = 'http://localhost:8888/',
+    var mriServer = 'http://localhost:1337/',
         iconStar = 'glyphicon glyphicon-star',
         iconStarEmpty = 'glyphicon glyphicon-star-empty';
 
