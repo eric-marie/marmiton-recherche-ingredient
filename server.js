@@ -92,7 +92,7 @@ http.createServer(function (request, response) {
             response.end();
         });
     };
-    var selectOption = function () {
+    var selectOption = function (json) {
         var typeRepas = {
             entree: "Entrée",
             platprincipal: "Plat principal",
@@ -105,9 +105,13 @@ http.createServer(function (request, response) {
         };
 
         var selectOptions = [];
-        for (var index in typeRepas) {
-            if (typeRepas.hasOwnProperty(index)) {
-                selectOptions.push("<option value=\"" + index + "\">" + typeRepas[index] + "</option>");
+        if(json) {
+            selectOptions = typeRepas;
+        } else {
+            for (var index in typeRepas) {
+                if (typeRepas.hasOwnProperty(index)) {
+                    selectOptions.push("<option value=\"" + index + "\">" + typeRepas[index] + "</option>");
+                }
             }
         }
 
@@ -118,7 +122,9 @@ http.createServer(function (request, response) {
     var parsedUrl = url.parse(request.url);
     var query = parsedUrl.query;
     if ('/select-options' == parsedUrl.pathname) {
-        selectOption();
+        selectOption(false);
+    } else if ('/select-options-json' == parsedUrl.pathname) {
+        selectOption(true);
     } else if ('/' == parsedUrl.pathname && null != query) {
         searchReceipts(marmitonUrl + '/recettes/recherche.aspx?' + query, 0)
     } else {
